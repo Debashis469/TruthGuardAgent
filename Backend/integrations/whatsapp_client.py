@@ -1,8 +1,10 @@
-import os, requests
+import os, requests, logging
 
 ACCESS_TOKEN = os.getenv("WHATSAPP_ACCESS_TOKEN")
 PHONE_ID = os.getenv("WHATSAPP_PHONE_NUMBER_ID")
-GRAPH_BASE = "https://graph.facebook.com/v20.0"
+GRAPH_BASE = "https://graph.facebook.com/v24.0"  # align with subscription
+
+log = logging.getLogger(__name__)
 
 def send_text(to: str, text: str) -> None:
     url = f"{GRAPH_BASE}/{PHONE_ID}/messages"
@@ -12,8 +14,13 @@ def send_text(to: str, text: str) -> None:
     }
     payload = {
         "messaging_product": "whatsapp",
-        "to": to,
+        "to": to,  # E.164 without '+'
         "type": "text",
-        "text": {"body": text},
+        "text": {"body": text, "preview_url": False},
     }
-    requests.post(url, headers=headers, json=payload, timeout=10)
+    try:
+        resp = requests.post(url, headers=headers, json=payload, timeout=15)
+        if resp.status_code >= 300:
+            log.error("whatsapp send failed code=%s body=%s", resp.status_code, resp.text[:400])
+    except requests.RequestException as e:
+        log.error("whatsapp send exception err=%s", e)
