@@ -1,0 +1,124 @@
+/* Simple, clear overlay style */
+:root {
+  --bg: rgba(16, 16, 16, 0.86);
+  --panel: rgba(28, 28, 28, 0.95);
+  --muted: #bfc5cc;
+  --accent: #22c55e;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  background: transparent;
+}
+
+#overlay {
+  width: 720px;
+  box-sizing: border-box;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: 10px;
+  color: #fff;
+}
+
+/* top */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.title {
+  font-weight: 600;
+  font-size: 16px;
+}
+.status {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* controls */
+#controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn.primary {
+  background: var(--accent);
+  color: #063018;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+/* transcript container: taller, single nice scrollbar */
+.transcript-container {
+  background: var(--panel);
+  border-radius: 8px;
+  padding: 8px;
+  height: 320px; /* larger box */
+  overflow-y: auto;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* individual rows */
+.row {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+.row.partial {
+  opacity: 0.88;
+  color: #dbeafe;
+}
+.row.final {
+  font-weight: 600;
+  color: #e6f4ea;
+}
+
+/* custom scrollbar for consistency */
+.transcript-container::-webkit-scrollbar {
+  width: 10px;
+}
+.transcript-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+.transcript-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+}
+.transcript-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* small responsive tweak */
+@media (max-width: 760px) {
+  #overlay {
+    width: calc(100vw - 24px);
+  }
+  .transcript-container {
+    height: 260px;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "electron-system-transcriber",
+  "version": "1.0.0",
+  "description": "Windows overlay app: capture system audio and stream to Google Speech-to-Text",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/speech": "^6.0.0",
+    "naudiodon": "^2.3.6"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "electron-rebuild": "^3.2.9"
+  }
+}
