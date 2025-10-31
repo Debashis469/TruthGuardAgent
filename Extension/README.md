@@ -1,70 +1,91 @@
-# TruthGuard Web Extension
+# TruthGuard Extension
 
-## Purpose
-- Allow readers to verify claims while browsing any article.
-- Send selected text or full-page context to the Flask backend for analysis.
-- Display verification results with clear verdicts, evidence, and confidence.
+Chrome extension for detecting false news and verifying facts on any webpage.
 
-## Core User Flows
+## Features
 
-### Quick Snippet Verification
-1. User selects a portion of text on a web page.
-2. Extension context menu or floating action button offers "Verify Fact".
-3. Extension packages payload `{ text, url, userMetadata }` and calls the backend `/extension` endpoint.
-4. Backend triggers the ADK agent flow and returns structured verification data.
-5. Extension renders a popup with status (true/false/mixed), supporting evidence, and links.
+- ✅ **Full Page Scan** - Analyze entire article
+- ✅ **Region Selection** - Select specific area with visual rectangle
+- ✅ **Download Reports** - Save results as Markdown files
+- ✅ **Demo Mode** - Works without backend (for testing)
 
-### Full Page Verification
-1. User opens the extension popup and clicks "Verify Entire Page".
-2. Extension captures article URL, document title, and readable text (via `document.body`, `Readability`, or similar parsing).
-3. Sends payload `{ fullText, url, title }` to the backend.
-4. Displays progress indicator while backend processes the request.
-5. Shows comprehensive verification report once the response arrives.
+## Quick Start
 
-## Data Contract with Backend
-- **Endpoint**: `POST https://<backend-host>/extension`
-- **Headers**: `Content-Type: application/json`; include auth token if available.
-- **Payload Fields**:
-  - `mode`: `"snippet"` or `"full_page"`.
-  - `text`: selected text or full article text.
-  - `url`: current page URL.
-  - `title`: optional page title.
-  - `user`: optional user/session metadata.
-- **Response Expectation**:
-  ```json
-  {
-    "status": "success",
-    "verdict": "true|false|mixed|unverified",
-    "confidence": 0.0,
-    "summary": "Concise finding",
-    "evidence": [
-      { "source": "https://...", "excerpt": "..." }
-    ],
-    "meta": { "processedAt": "2025-10-28T00:00:00Z" }
-  }
-  ```
-- Handle error responses with fallback messaging (network failures, agent timeouts).
+### 1. Build
 
-## UX Considerations
-- Keep popup minimal: verdict badge, confidence meter, expandable evidence list.
-- Provide "Re-run" and "Report Issue" shortcuts.
-- Persist last results per URL in local storage for quick recall.
-- Respect privacy: prompt user before sending large payloads; show data usage notice.
+```bash
+npm install
+npm run build
+```
 
-## Technical Notes
-- Use Manifest V3 (service worker background script) for modern browsers.
-- Content script listens for selection changes and injects contextual UI.
-- Background script handles API calls and authentication tokens.
-- Apply debouncing to avoid multiple API calls when selection changes rapidly.
-- Integrate with `chrome.contextMenus` to offer right-click verification.
+### 2. Load Extension
 
-## Testing Checklist
-- Verify snippet selection across major sites (news, blogs, PDFs where possible).
-- Test full-page capture on paywalled or dynamically rendered pages.
-- Confirm URL always accompanies text payload.
-- Validate graceful handling of backend errors and offline mode.
+1. Open `chrome://extensions/`
+2. Enable "Developer mode"
+3. Click "Load unpacked"
+4. Select the `dist` folder
 
-## Future Enhancements
-- Inline highlighting of verified segments on the page.
-- Integration with history dashboard synchronized via the user account.
-- Internationalization of UI labels and verdict messages.
+### 3. Use
+
+- Click extension icon
+- Choose "Scan Full Page" or "Select Region"
+- Download report as Markdown
+
+## API Integration
+
+Currently in **demo mode**. When backend is ready:
+
+**Endpoints:**
+
+- Send to: `http://localhost:5000/api/extension`
+- Receive from: `http://localhost:5000/api/agent`
+
+**Request Format:**
+
+```json
+{
+  "mode": "full_page" | "selection",
+  "text": "content to verify",
+  "url": "https://example.com",
+  "title": "Page Title"
+}
+```
+
+**Expected Response:**
+
+```json
+{
+  "status": "success",
+  "verdict": "true" | "false" | "mixed",
+  "confidence": 0.95,
+  "summary": "Verification summary"
+}
+```
+
+## Project Structure
+
+```
+Extension/
+├── src/
+│   ├── popup.jsx           # Main popup UI
+│   ├── content.js          # Page scraping & selection
+│   ├── background.js       # API handler
+│   └── components/
+│       └── Popup.jsx       # React component
+├── public/
+│   ├── manifest.json       # Extension config
+│   └── icons/
+│       └── icon.svg        # Single SVG icon
+└── dist/                   # Build output
+```
+
+## Development
+
+```bash
+npm run build    # Build extension
+npm run dev      # Watch mode (requires reload in browser)
+```
+
+## License
+
+MIT
