@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.exe
+*.log
+google-credentials.json
+Audio-Transcribe/google-credentials.json
+.env
