@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>System Transcriber</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="overlay">
+      <div class="topbar">
+        <div class="title">System Transcriber</div>
+        <div id="status" class="status">Idle</div>
+      </div>
+
+      <div id="controls">
+        <button id="startBtn" class="btn">Start</button>
+        <button id="stopBtn" class="btn" disabled>Stop</button>
+        <button id="processBtn" class="btn primary" disabled>Process</button>
+      </div>
+
+      <div
+        id="transcriptContainer"
+        class="transcript-container"
+        aria-live="polite"
+      ></div>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

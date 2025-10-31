@@ -1,0 +1,4 @@
+/* Content script styles */
+#truthguard-selection-overlay * {
+  box-sizing: border-box;
+}
