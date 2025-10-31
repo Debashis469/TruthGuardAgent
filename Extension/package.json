@@ -1,0 +1,24 @@
+{
+  "name": "truthguard-extension",
+  "version": "1.0.0",
+  "description": "TruthGuard Web Extension - Detect false news and verify facts",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node create-icons.js && vite build && node build-copy.js",
+    "preview": "vite preview",
+    "icons": "node create-icons.js"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.10"
+  }
+}
