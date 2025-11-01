@@ -11,6 +11,7 @@ class Result(BaseModel):
     verdict: str
     confidence: float = Field(ge=0.0, le=1.0)
     evidence: List[Evidence] = []
+    raw_final: Optional[str] = None  # add this
 
 class RequestModel(BaseModel):
     text: str
