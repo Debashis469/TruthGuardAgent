@@ -1,42 +1,49 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f9fb;
+  color: #223340;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.header {
+  background-color: #3153ba;
+  color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.header nav a {
+  color: white;
+  margin-right: 12px;
+  text-decoration: none;
+  font-weight: bold;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.header nav a:last-child {
+  margin-right: 0;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.claim-form {
+  margin: 2em auto;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.claim-form textarea {
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px;
 }
-
-.card {
-  padding: 2em;
+.claim-form select, .claim-form button {
+  padding: 8px;
 }
-
-.read-the-docs {
-  color: #888;
+.result-panel, .history-panel, .dashboard {
+  margin: 2em auto;
+  max-width: 500px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px #ccd5e3;
+}
+ul {
+  list-style: disc inside;
 }
